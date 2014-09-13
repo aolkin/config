@@ -41,7 +41,7 @@ class Config(models.Model):
 
     @classmethod
     def set(self,key,val):
-        obj = self.objects.get_or_create(key=key)
+        obj, created = self.objects.get_or_create(key=key)
         obj.value = val
         obj.save()
 
