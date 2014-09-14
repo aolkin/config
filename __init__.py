@@ -14,4 +14,7 @@ class _Config:
     def get(self,key,fallback=None):
         return models.Config.get(key,fallback)
 
+    def clear_cache(self):
+        models.clear_cache()
+
 config = _Config()
