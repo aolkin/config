@@ -44,6 +44,7 @@ class Config(models.Model):
     @classmethod
     def set(self,key,val):
         obj, created = self.objects.get_or_create(key=key)
+        obj.missing = False
         obj.value = val
         obj.save()
 
