@@ -24,8 +24,10 @@ class Config(models.Model):
         return self.value
 
     @classmethod
-    def get(self,key,fallback=None):
+    def get(self,key,fallback=None,nocache=False):
         try:
+            if nocache:
+                raise KeyError("Do not cache")
             res = _cache[key]
         except KeyError:
             try:
