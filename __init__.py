@@ -17,6 +17,12 @@ class _Config:
     def get(self,key,fallback=None):
         return models.Config.get(key,fallback,nocache=not self._use_cache)
 
+    def get_float(self,key,fallback=None):
+        try:
+            return float(self.get(key,fallback))
+        except ValueError as err:
+            return fallback
+
     def clear_cache(self):
         models.clear_cache()
 
