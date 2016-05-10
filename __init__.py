@@ -1,21 +1,24 @@
 
-
-from . import models
+from importlib import import_module
 
 class _Config:
     def __init__(self, caching=True):
         super().__setattr__("_use_cache",caching)
 
+    def _ready(self):
+        self.__models = import_module("config.models")
+        
     def __getattr__(self,key):
-        return models.Config.get(key,nocache=not self._use_cache)
+        return self.__models.Config.get(key,nocache=not self._use_cache)
     __getitem__ = __getattr__
 
     def __setattr__(self,key,value):
-        return models.Config.set(key,value)
+        return self.__models.Config.set(key,value)
     __setitem__ = __setattr__
 
     def get(self,key,fallback=None):
-        return models.Config.get(key,fallback,nocache=not self._use_cache)
+        return self.__models.Config.get(key, fallback,
+                                        nocache=not self._use_cache)
 
     def get_float(self,key,fallback=None):
         try:
