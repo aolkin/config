@@ -1,10 +1,11 @@
 from django.apps import AppConfig
 
-from config import config
+from config import config, uncached_config
 
 class ConfigappConfig(AppConfig):
-    name = 'Database Config App'
+    name = 'config'
+    verbose_name = "Database Configuration Storage"
 
     def ready(self):
-        print("Readying configuration app...")
         config._ready()
+        uncached_config._ready()

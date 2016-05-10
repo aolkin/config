@@ -1,6 +1,8 @@
 
 from importlib import import_module
 
+default_app_config = "config.apps.ConfigappConfig"
+
 class _Config:
     def __init__(self, caching=True):
         super().__setattr__("_use_cache",caching)
@@ -13,6 +15,8 @@ class _Config:
     __getitem__ = __getattr__
 
     def __setattr__(self,key,value):
+        if key.startswith("_"):
+            return object.__setattr__(self, key, value)
         return self.__models.Config.set(key,value)
     __setitem__ = __setattr__
 
@@ -27,7 +31,7 @@ class _Config:
             return fallback
 
     def clear_cache(self):
-        models.clear_cache()
+        self.__models.clear_cache()
 
     @property
     def use_cache(self):
