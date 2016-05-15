@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.utils import Error
 
 # Create your models here.
 
@@ -38,6 +39,9 @@ class Config(models.Model):
                 _cache[key] = res
             except self.DoesNotExist as err:
                 self.objects.create(key=key,value=fallback or "",missing=True)
+                return fallback
+            except Error as err:
+                print(repr(err))
                 return fallback
         return res
 
