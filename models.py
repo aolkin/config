@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.utils import Error
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -10,13 +12,6 @@ class Config(models.Model):
     value = models.CharField(max_length=240,blank=True)
     missing = models.BooleanField(default=False)
     date_modified = models.DateTimeField(auto_now=True)
-
-    def save(self,*args,**kwargs):
-        try:
-            del _cache[self.key]
-        except KeyError:
-            pass
-        super().save(*args,**kwargs)
 
     def __repr__(self):
         return "<{}: {}>".format(self.key,self.value)
@@ -52,5 +47,9 @@ class Config(models.Model):
         obj.value = val
         obj.save()
 
+@receiver(post_save, sender=Config)
+def update_cache(sender, instance, **kwargs):
+    _cache[instance.key] = instance.value
+        
 def clear_cache():
     _cache.clear()
