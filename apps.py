@@ -1,10 +1,13 @@
 from django.apps import AppConfig
+from django.conf import settings
 
 from config import config, uncached_config
 
 class ConfigappConfig(AppConfig):
     name = 'config'
-    verbose_name = "Database Configuration Storage"
+    verbose_name = (settings.CONFIGURATION_APP_TITLE if
+                    hasattr(settings, "CONFIGURATION_APP_TITLE") else
+                    "Database Configuration Storage")
 
     def ready(self):
         config._ready()

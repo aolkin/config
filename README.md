@@ -8,6 +8,8 @@ Add `config` to `INSTALLED_APPS` in your settings file.
 
 To enable the template context processor, add `"config.context_processors.configuration"` to `TEMPLATE_CONTEXT_PROCESSORS` in your settings file. This will add `options` and `uncached_options` as template variables.
 
+To change the app's name in Django's admin interface, use the setting `CONFIGURATION_APP_TITLE`.
+
 Use
 --------------------
 
