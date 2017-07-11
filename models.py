@@ -19,6 +19,10 @@ class Config(models.Model):
     def __str__(self):
         return self.value
 
+    class Meta:
+        verbose_name = "Configuration Datum"
+        verbose_name_plural = "Configuration Data"
+    
     @classmethod
     def get(self,key,fallback=None,nocache=False):
         try:
