@@ -24,3 +24,13 @@ class ConfigAdmin(admin.ModelAdmin):
         self.message_user(request,"Cache cleared.")
 
 admin.site.register(Config,ConfigAdmin)
+
+class AutocompleteAdmin(admin.ModelAdmin):
+    list_display = ('key', 'value')
+    list_editable = ('key', 'value',)
+    list_display_links = None
+    list_filter = ('key',)
+    search_fields = ('key','value')
+    ordering = ('key',)
+
+admin.site.register(Autocomplete,AutocompleteAdmin)

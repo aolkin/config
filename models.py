@@ -51,6 +51,20 @@ class Config(models.Model):
         obj.value = val
         obj.save()
 
+class Autocomplete(models.Model):
+    key = models.CharField(max_length=40)
+    value = models.CharField(max_length=240)
+
+    def __repr__(self):
+        return "<{}: {}>".format(self.key,self.value)
+
+    def __str__(self):
+        return self.value
+
+    class Meta:
+        verbose_name = "Autocomplete Suggestion"
+        verbose_name_plural = "Autocomplete Suggestions"
+        
 @receiver(post_save, sender=Config)
 def update_cache(sender, instance, **kwargs):
     _cache[instance.key] = instance.value

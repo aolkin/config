@@ -20,3 +20,11 @@ In python code, the preferred method is through the `config` and `uncached_confi
 To use the `get_opt` and `option` template tags, place `{% load config %}` at the top of your template.
 
 Additionally, `get_nocache` and `option_uncached` are provided for systems where multiple systems share the same database.
+
+Autocomplete Suggestions
+------------------------
+
+This package also provides a model for storing autocomplete suggestions, and a
+view at `config.views.autocomplete_json` that returns a JSON list of
+suggestions given a key and search term, provided by the `key` and `q` HTTP
+GET parameters to the request.
