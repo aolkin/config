@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 from django.conf import settings
 
-from config import config, uncached_config
+from config import *
 
 class ConfigappConfig(AppConfig):
     name = 'config'
@@ -12,3 +12,4 @@ class ConfigappConfig(AppConfig):
     def ready(self):
         config._ready()
         uncached_config._ready()
+        numeric_config._ready()

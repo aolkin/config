@@ -21,6 +21,8 @@ To use the `get_opt` and `option` template tags, place `{% load config %}` at th
 
 Additionally, `get_nocache` and `option_uncached` are provided for systems where multiple systems share the same database.
 
+The `context_processors.configuration` context processor will add `options`, `uncached_options`, and `numeric_options` (which will always try to return a number if possible) to the template context.
+
 Autocomplete Suggestions
 ------------------------
 
